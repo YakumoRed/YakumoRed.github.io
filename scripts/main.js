@@ -89,11 +89,11 @@ var archerUtil = {
   },
   // 获取元素在页面上相对左上角的位置
   getAbsPosition: function getAbsPosition(e) {
-    var x = e.offsetRight,
+    var x = e.offsetLeft,
         y = e.offsetTop;
 
     while (e = e.offsetParent) {
-      x += e.offsetRight;
+      x += e.offsetLeft;
       y += e.offsetTop;
     }
 
