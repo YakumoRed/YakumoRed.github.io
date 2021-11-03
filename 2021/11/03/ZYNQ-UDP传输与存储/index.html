@@ -20,22 +20,41 @@
     <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="很懒，什么都没留下。">
-    <meta name="description" content="本博客使用的主题为 Aracher，作者 fi3ework。但由于作者许久未更新，所以在编译时有问题，这里写一份 Aracher 的应用说明。">
+    <meta name="description" content="接着上一篇发送hello world，记录一下zynq以太网项目实现过程环境：Vivado2020.2，Vitis，Miz701N参考：https:&#x2F;&#x2F;blog.csdn.net&#x2F;FPGADesigner&#x2F;article&#x2F;details&#x2F;88751502">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Aracher主题应用指北">
-<meta property="og:url" content="https://yakumored.github.io/2021/03/24/Aracher%E9%A3%9F%E7%94%A8%E6%8C%87%E5%8C%97/index.html">
+<meta property="og:title" content="ZYNQ-UDP传输与存储">
+<meta property="og:url" content="https://yakumored.github.io/2021/11/03/ZYNQ-UDP%E4%BC%A0%E8%BE%93%E4%B8%8E%E5%AD%98%E5%82%A8/index.html">
 <meta property="og:site_name" content="人间之里">
-<meta property="og:description" content="本博客使用的主题为 Aracher，作者 fi3ework。但由于作者许久未更新，所以在编译时有问题，这里写一份 Aracher 的应用说明。">
+<meta property="og:description" content="接着上一篇发送hello world，记录一下zynq以太网项目实现过程环境：Vivado2020.2，Vitis，Miz701N参考：https:&#x2F;&#x2F;blog.csdn.net&#x2F;FPGADesigner&#x2F;article&#x2F;details&#x2F;88751502">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-03-24T06:30:36.000Z">
-<meta property="article:modified_time" content="2021-09-24T08:29:56.361Z">
+<meta property="og:image" content="https://yakumored.github.io/pic/zynq_udp_to_pl/1.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/zynq_udp_to_pl/2.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/zynq_udp/2.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/zynq_udp/3.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/zynq_udp_to_pl/3.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/zynq_udp/5.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/zynq_udp_to_pl/4.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/zynq_udp_to_pl/5.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/zynq_udp_to_pl/6.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/zynq_udp_to_pl/7.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/zynq_udp_to_pl/8.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/zynq_udp_to_pl/9.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/zynq_udp_to_pl/10.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/zynq_udp_to_pl/11.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/zynq_udp_to_pl/12.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/zynq_udp_to_pl/13.png">
+<meta property="article:published_time" content="2021-11-03T06:35:49.000Z">
+<meta property="article:modified_time" content="2021-11-03T07:28:21.558Z">
 <meta property="article:author" content="YakumoRed">
-<meta property="article:tag" content="Hexo主题">
+<meta property="article:tag" content="ZYNQ">
+<meta property="article:tag" content="UDP">
+<meta property="article:tag" content="BRAM">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yakumored.github.io/pic/zynq_udp_to_pl/1.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     
-    <title>Aracher主题应用指北 · YakumoRed&#39;s blog</title>
+    <title>ZYNQ-UDP传输与存储 · YakumoRed&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -231,7 +250,7 @@
                 <a href="/" >人间之里</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Aracher主题应用指北</a>
+                <a href="#" class="post-name">ZYNQ-UDP传输与存储</a>
             </div>
     </div>
     
@@ -261,7 +280,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Aracher主题应用指北
+            ZYNQ-UDP传输与存储
             <!-- 404 -->
             
         </h1>
@@ -280,18 +299,22 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Hexo主题">Hexo主题</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ZYNQ">ZYNQ</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "UDP">UDP</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "BRAM">BRAM</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">220</span>Reading time: <span class="post-count reading-time">1 min</span></span>
+                        <span>Word count: <span class="post-count word-count">730</span>Reading time: <span class="post-count reading-time">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2021/03/24</span>
+                    <span class="post-intro-time">2021/11/03</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -415,21 +438,45 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>本博客使用的主题为 Aracher，作者 fi3ework。但由于作者许久未更新，所以在编译时有问题，这里写一份 Aracher 的应用说明。</p>
+        <p>接着上一篇发送hello world，记录一下zynq以太网项目实现过程<br>环境：Vivado2020.2，Vitis，Miz701N<br>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/FPGADesigner/article/details/88751502">https://blog.csdn.net/FPGADesigner/article/details/88751502</a></p>
 <span id="more"></span>
 
-<p>尝试了许多 hexo 的主题，非常喜欢 <strong>Aracher</strong> 的简约风，可惜作者许久未更新该主题，导致二次开发上有一些问题。若使用 <strong>npm i</strong> 和 <strong>npm run build</strong> 时，由于作者使用的 node 以及 gulp 版本过于久远，会使得这两个命令报错而无法进行编译，苦恼了许多天。</p>
-<p>多方寻找后，在Aracher主题的仓库PR内发现大佬 <strong>Stark-X</strong> 对该主题进行了更新并进行了打包（但作者并没有应用），这里贴出 <strong>Stark-X</strong> 的仓库<a target="_blank" rel="noopener" href="https://github.com/Stark-X/hexo-theme-archer">https://github.com/Stark-X/hexo-theme-archer</a></p>
-<p>仓库内已经对原主题进行了更新并可直接应用，写这篇文分享。</p>
+<h2 id="实现结果"><a href="#实现结果" class="headerlink" title="实现结果"></a>实现结果</h2><p>本次实验实现了PS端通过UDP接收PC端传输过来的数据，并通过BRAM保存在指定内存区域中。<br>缺陷：由于还未能查询到内存擦除指令，暂时只能保存一次传输过来的数据，之后数据再不保存，只能通过重新Debug的方式再保存数据。</p>
+<h2 id="PL端设计"><a href="#PL端设计" class="headerlink" title="PL端设计"></a>PL端设计</h2><p>1.添加CPU</p>
+<p><img src="/pic/zynq_udp_to_pl/1.png" alt="图片"></p>
+<p>2.勾选GP端口</p>
+<p><img src="/pic/zynq_udp_to_pl/2.png" alt="图片"></p>
+<p>2.使能网口及串口</p>
+<p><img src="/pic/zynq_udp/2.png" alt="图片"><br><img src="/pic/zynq_udp/3.png" alt="图片"></p>
+<p>3.系统频率设置及FCLK频率设置，我的板子用的是50MHz，FCLK设置为100MHz</p>
+<p><img src="/pic/zynq_udp_to_pl/3.png" alt="图片"></p>
+<p>4.下载设置，看个人板子要求</p>
+<p><img src="/pic/zynq_udp/5.png" alt="图片"></p>
+<p>5.添加<strong>两个</strong>BRAM，并设置Number of BRAM interfaces为1，其它默认</p>
+<p><img src="/pic/zynq_udp_to_pl/4.png" alt="图片"><br><img src="/pic/zynq_udp_to_pl/5.png" alt="图片"></p>
+<p>6.添加Block Memory Generator, 并设置Memory type为True Dual Port RAM</p>
+<p><img src="/pic/zynq_udp_to_pl/6.png" alt="图片"><br><img src="/pic/zynq_udp_to_pl/7.png" alt="图片"></p>
+<p>7.设置完成后执行Run Block Automation和Run Connection Automation，完成连线后如图</p>
+<p><img src="/pic/zynq_udp_to_pl/8.png" alt="图片"></p>
+<p>注意：使用Vavido高版本时可能会产生警告，类似如下图</p>
+<p><img src="/pic/zynq_udp_to_pl/9.png" alt="图片"></p>
+<p>解决方法：打开vivado的address editor，你可能会发现有一个Unassigned，如图1，右键assign，并重新设置地址即可</p>
+<p><img src="/pic/zynq_udp_to_pl/10.png" alt="图片"><br><img src="/pic/zynq_udp_to_pl/11.png" alt="图片"><br><img src="/pic/zynq_udp_to_pl/12.png" alt="图片"></p>
+<h2 id="PS端设计"><a href="#PS端设计" class="headerlink" title="PS端设计"></a>PS端设计</h2><p>PS端的设计类似于发送hello world那篇设计，在user_udp.c有所改动，其余文件代码基本相同（main.c的while循环中无需调用udp_printf函数发送）。</p>
+<p>user_udp.c</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include &quot;user_udp.h&quot;</span></span><br><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line"><span class="comment">#include &quot;xil_io.h&quot;</span></span><br><span class="line"><span class="comment">#include &quot;xparameters.h&quot;</span></span><br><span class="line"></span><br><span class="line">//---------------------------------------------------------</span><br><span class="line">//                    变量定义</span><br><span class="line">//---------------------------------------------------------</span><br><span class="line">static unsigned local_port = 7;      //本地端口</span><br><span class="line">int rev;</span><br><span class="line"><span class="comment">#define MAX_FLASH_LEN 16*1024*1024</span></span><br><span class="line">unsigned long total_bytes = 0;</span><br><span class="line">unsigned char  rxbuffer[MAX_FLASH_LEN];</span><br><span class="line">//---------------------------------------------------------</span><br><span class="line">//                  UDP接收回调函数</span><br><span class="line">//---------------------------------------------------------</span><br><span class="line"></span><br><span class="line">void udp_recv_callback(void *arg, struct udp_pcb *tpcb,</span><br><span class="line">           struct pbuf *p,ip_addr_t *addr, u16_t port)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	xil_printf(<span class="string">&quot;Received from %d.%d.%d.%d port %d\r\n&quot;</span>, (addr-&gt;addr) &amp; 0xFF,</span><br><span class="line">			(addr-&gt;addr&gt;&gt;8) &amp; 0xFF, (addr-&gt;addr&gt;&gt;16) &amp; 0xFF,</span><br><span class="line">			(addr-&gt;addr&gt;&gt;24) &amp; 0xFF, port);</span><br><span class="line">	udp_printf(p, tpcb, addr, port);    //<span class="built_in">echo</span></span><br><span class="line"></span><br><span class="line">	//读取PC数据并存储</span><br><span class="line">	<span class="keyword">while</span> (p-&gt;tot_len != p-&gt;len) &#123;		</span><br><span class="line">			            memcpy(&amp;rxbuffer[total_bytes], p-&gt;payload, p-&gt;len);</span><br><span class="line">			            total_bytes += p-&gt;len;</span><br><span class="line">			            p = p-&gt;next;</span><br><span class="line"></span><br><span class="line">			        &#125;</span><br><span class="line">	memcpy(&amp;rxbuffer[total_bytes], p-&gt;payload, p-&gt;len);</span><br><span class="line">	total_bytes = p-&gt;len;</span><br><span class="line">	<span class="keyword">for</span>(int i=0;i&lt;total_bytes;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		//存储数据至指定内存</span><br><span class="line">		Xil_Out32(XPAR_BRAM_0_BASEADDR + i*4, rxbuffer[i]);		</span><br><span class="line">	&#125;</span><br><span class="line">	pbuf_free(p);     //释放pbuf</span><br><span class="line">	<span class="built_in">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//---------------------------------------------------------</span><br><span class="line">//                  UDP连接初始化函数</span><br><span class="line">//---------------------------------------------------------</span><br><span class="line">int user_udp_init(void)</span><br><span class="line">&#123;</span><br><span class="line">	struct udp_pcb *pcb;</span><br><span class="line">	err_t err;</span><br><span class="line"></span><br><span class="line">	/*  创建UDP控制块   */</span><br><span class="line">	pcb = udp_new();</span><br><span class="line">	<span class="keyword">if</span> (!pcb) &#123;</span><br><span class="line">		xil_printf(<span class="string">&quot;Error Creating PCB.\r\n&quot;</span>);</span><br><span class="line">		<span class="built_in">return</span> -1;</span><br><span class="line">	&#125;</span><br><span class="line">	/*  绑定本地端口   */</span><br><span class="line">	err = udp_bind(pcb, IP_ADDR_ANY, local_port);</span><br><span class="line">	<span class="keyword">if</span> (err != ERR_OK) &#123;</span><br><span class="line">		xil_printf(<span class="string">&quot;Unable to bind to port %d\r\n&quot;</span>, local_port);</span><br><span class="line">		<span class="built_in">return</span> -2;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	udp_recv(pcb, udp_recv_callback, NULL);  //设置接收回调函数</span><br><span class="line"></span><br><span class="line">	<span class="built_in">return</span> 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//---------------------------------------------------------</span><br><span class="line">//                   UDP发送数据函数</span><br><span class="line">//---------------------------------------------------------</span><br><span class="line">void udp_printf(struct pbuf *send_pbuf, struct udp_pcb *tpcb,ip_addr_t *addr, u16_t port)</span><br><span class="line">&#123;</span><br><span class="line">	err_t err;</span><br><span class="line"></span><br><span class="line">	/*  发送字符串  */</span><br><span class="line">	err = udp_sendto(tpcb, send_pbuf, addr, port);  //<span class="built_in">echo</span></span><br><span class="line">	<span class="keyword">if</span> (err != ERR_OK) &#123;</span><br><span class="line">		xil_printf(<span class="string">&quot;Error on udp send : %d\r\n&quot;</span>, err);</span><br><span class="line">		<span class="built_in">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p><img src="/pic/zynq_udp_to_pl/13.png" alt="图片"></p>
+<p>可以看出数据 “hello” 已经以十六进制已经存储在目标地址块(40000070)中了,其中地址块(40000000~40000070)的数据为UDP报头</p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>Author：<a href="https://YakumoRed.github.io">YakumoRed</a>
-            <p>原文链接：<a href="https://yakumored.github.io/2021/03/24/Aracher%E9%A3%9F%E7%94%A8%E6%8C%87%E5%8C%97/">https://yakumored.github.io/2021/03/24/Aracher%E9%A3%9F%E7%94%A8%E6%8C%87%E5%8C%97/</a>
-            <p>发表日期：<a href="https://yakumored.github.io/2021/03/24/Aracher%E9%A3%9F%E7%94%A8%E6%8C%87%E5%8C%97/">March 24th 2021, 2:30:36 pm</a>
-            <p>更新日期：<a href="https://yakumored.github.io/2021/03/24/Aracher%E9%A3%9F%E7%94%A8%E6%8C%87%E5%8C%97/">September 24th 2021, 4:29:56 pm</a>
+            <p>原文链接：<a href="https://yakumored.github.io/2021/11/03/ZYNQ-UDP%E4%BC%A0%E8%BE%93%E4%B8%8E%E5%AD%98%E5%82%A8/">https://yakumored.github.io/2021/11/03/ZYNQ-UDP%E4%BC%A0%E8%BE%93%E4%B8%8E%E5%AD%98%E5%82%A8/</a>
+            <p>发表日期：<a href="https://yakumored.github.io/2021/11/03/ZYNQ-UDP%E4%BC%A0%E8%BE%93%E4%B8%8E%E5%AD%98%E5%82%A8/">November 3rd 2021, 2:35:49 pm</a>
+            <p>更新日期：<a href="https://yakumored.github.io/2021/11/03/ZYNQ-UDP%E4%BC%A0%E8%BE%93%E4%B8%8E%E5%AD%98%E5%82%A8/">November 3rd 2021, 3:28:21 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -437,13 +484,13 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2021/09/24/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/" title= "测试文章">
-                    <div class="nextTitle">测试文章</div>
-                </a>
-            
         </li>
         <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2021/10/27/ZYNQ-UDP%E5%8F%91%E9%80%81hello%20world/" title= "ZYNQ-UDP发送hello world">
+                    <div class="prevTitle">ZYNQ-UDP发送hello world</div>
+                </a>
             
         </li>
     </ul>
@@ -604,7 +651,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E7%BB%93%E6%9E%9C"><span class="toc-number">1.</span> <span class="toc-text">实现结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PL%E7%AB%AF%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.</span> <span class="toc-text">PL端设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PS%E7%AB%AF%E8%AE%BE%E8%AE%A1"><span class="toc-number">3.</span> <span class="toc-text">PS端设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="toc-number">4.</span> <span class="toc-text">实验结果</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer"></div>
