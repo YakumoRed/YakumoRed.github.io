@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="YakumoRed">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="YakumoRed">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="很懒，什么都没留下。">
+    <meta name="description" content="本篇为上篇PL通过DMA和TCP发送的后记，主要是将TCP发送改为UDP发送。环境：Vivado2020.2，Vitis，Miz701N">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ZYNQ-PL通过DMA和UDP发送数据至PC">
+<meta property="og:url" content="https://yakumored.github.io/2021/11/30/ZYNQ-PL%E9%80%9A%E8%BF%87DMA%E5%92%8CUDP%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E8%87%B3PC/index.html">
+<meta property="og:site_name" content="人间之里">
+<meta property="og:description" content="本篇为上篇PL通过DMA和TCP发送的后记，主要是将TCP发送改为UDP发送。环境：Vivado2020.2，Vitis，Miz701N">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://yakumored.github.io/pic/PL2PC_udp/1.png">
+<meta property="article:published_time" content="2021-11-30T11:29:08.000Z">
+<meta property="article:modified_time" content="2021-11-30T12:07:24.435Z">
+<meta property="article:author" content="YakumoRed">
+<meta property="article:tag" content="ZYNQ">
+<meta property="article:tag" content="UDP">
+<meta property="article:tag" content="DMA">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yakumored.github.io/pic/PL2PC_udp/1.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    
+    <title>ZYNQ-PL通过DMA和UDP发送数据至PC · YakumoRed&#39;s blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20210204" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20210204" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/suolue.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js?v=20210204" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    <script src="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.2/js/all.min.js"  data-auto-replace-svg="nest" ></script>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >人间之里</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">ZYNQ-PL通过DMA和UDP发送数据至PC</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>人间之里</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.png)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            ZYNQ-PL通过DMA和UDP发送数据至PC
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ZYNQ">ZYNQ</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "UDP">UDP</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "DMA">DMA</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">1.1k</span>Reading time: <span class="post-count reading-time">5 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2021/11/30</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>本篇为上篇PL通过DMA和TCP发送的后记，主要是将TCP发送改为UDP发送。<br>环境：Vivado2020.2，Vitis，Miz701N</p>
+<span id="more"></span>
+
+<h2 id="PL端设计"><a href="#PL端设计" class="headerlink" title="PL端设计"></a>PL端设计</h2><p>PL端设计没有改动，可以参照TCP发送那篇来。</p>
+<h2 id="PS端设计"><a href="#PS端设计" class="headerlink" title="PS端设计"></a>PS端设计</h2><p>PS端相较TCP发送改动：</p>
+<p>1.删除tcp_transmission.c, 并添加user_udp.c以及user_udp.h, 工程目录如图。</p>
+<p><img src="/pic/PL2PC_udp/1.png" alt="图片"></p>
+<p>2.user_udp.c内容如下，主要的发送内容在udp_printf中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include &quot;user_udp.h&quot;</span></span><br><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line"><span class="comment">#include &quot;xil_io.h&quot;</span></span><br><span class="line"><span class="comment">#include &quot;xparameters.h&quot;</span></span><br><span class="line"><span class="comment">#include &quot;xaxidma.h&quot;</span></span><br><span class="line"><span class="comment">#include &quot;sleep.h&quot;</span></span><br><span class="line">//<span class="comment">#include &quot;dma_intr.h&quot;</span></span><br><span class="line"></span><br><span class="line">//---------------------------------------------------------</span><br><span class="line">//                    变量定义</span><br><span class="line">//---------------------------------------------------------</span><br><span class="line"><span class="comment">#define DATAADDR 0x10300000</span></span><br><span class="line"><span class="comment">#define PAKET_LENGTH (4096)</span></span><br><span class="line"><span class="comment">#define SEND_SIZE (4096)</span></span><br><span class="line">extern XAxiDma AxiDma;</span><br><span class="line">extern u16 *RxBufferPtr[2];</span><br><span class="line">extern u8_t packet_trans_done;</span><br><span class="line"></span><br><span class="line">static unsigned first_trans_start = 0;</span><br><span class="line">static u32_t packet_index = 0;</span><br><span class="line">struct udp_pcb *connected_pcb = NULL;</span><br><span class="line">static struct pbuf *pbuf_to_be_sent = NULL;</span><br><span class="line"></span><br><span class="line">static unsigned local_port = 7;      //本地端口</span><br><span class="line">static unsigned remote_port = 8080;  //远程端口</span><br><span class="line">volatile unsigned udp_connected_flag = 0;  //连接标志</span><br><span class="line">u16 *p_data;</span><br><span class="line">//---------------------------------------------------------</span><br><span class="line">//                  UDP连接初始化函数</span><br><span class="line">//---------------------------------------------------------</span><br><span class="line">int user_udp_init(void)</span><br><span class="line">&#123;</span><br><span class="line">	struct udp_pcb *pcb;</span><br><span class="line">	struct ip4_addr ipaddr;</span><br><span class="line">	err_t err;</span><br><span class="line">	udp_connected_flag = 0;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	/*  创建UDP控制块   */</span><br><span class="line">	pcb = udp_new();</span><br><span class="line">	<span class="keyword">if</span> (!pcb) &#123;</span><br><span class="line">		xil_printf(<span class="string">&quot;Error Creating PCB.\r\n&quot;</span>);</span><br><span class="line">		<span class="built_in">return</span> -1;</span><br><span class="line">	&#125;</span><br><span class="line">	/*  绑定本地端口   */</span><br><span class="line">	err = udp_bind(pcb, IP_ADDR_ANY, local_port);</span><br><span class="line">	<span class="keyword">if</span> (err != ERR_OK) &#123;</span><br><span class="line">		xil_printf(<span class="string">&quot;Unable to bind to port %d\r\n&quot;</span>, local_port);</span><br><span class="line">		<span class="built_in">return</span> -2;</span><br><span class="line">	&#125;</span><br><span class="line">	/*  连接远程地址   */</span><br><span class="line">	IP4_ADDR(&amp;ipaddr, 192, 168, 1, 209);</span><br><span class="line">	err = udp_connect(pcb, &amp;ipaddr, remote_port);</span><br><span class="line">	<span class="keyword">if</span> (err != ERR_OK) &#123;</span><br><span class="line">		xil_printf(<span class="string">&quot;Unable to connect remote port.\r\n&quot;</span>);</span><br><span class="line">		<span class="built_in">return</span> -3;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		xil_printf(<span class="string">&quot;Connected Success.\r\n&quot;</span>);</span><br><span class="line">		connected_pcb = pcb;</span><br><span class="line">		udp_connected_flag = 1;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="built_in">return</span> 0;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//---------------------------------------------------------</span><br><span class="line">//                   UDP发送数据函数</span><br><span class="line">//---------------------------------------------------------</span><br><span class="line">void udp_printf(void)</span><br><span class="line">&#123;</span><br><span class="line">	err_t err;</span><br><span class="line">	int Status;</span><br><span class="line">	//struct ip4_addr ipaddr;</span><br><span class="line">	int data_flag = 0;</span><br><span class="line">	p_data = DATAADDR;</span><br><span class="line">	struct udp_pcb *tpcb = connected_pcb;</span><br><span class="line"></span><br><span class="line">	/*initial the first axdma transmission, only excuse once*/</span><br><span class="line">	<span class="keyword">if</span>(!first_trans_start)</span><br><span class="line">	&#123;</span><br><span class="line">		Status = XAxiDma_SimpleTransfer(&amp;AxiDma, (u32)RxBufferPtr[0],</span><br><span class="line">				(u32)(PAKET_LENGTH), XAXIDMA_DEVICE_TO_DMA);</span><br><span class="line">		<span class="keyword">if</span> (Status != XST_SUCCESS)</span><br><span class="line">		&#123;</span><br><span class="line">			xil_printf(<span class="string">&quot;axi dma failed! 0 %d\r\n&quot;</span>, Status);</span><br><span class="line">			<span class="built_in">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		//<span class="built_in">set</span> the flag, so this part of code will not excuse again</span><br><span class="line">		first_trans_start = 1;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(packet_trans_done) <span class="comment">#DMA传输</span></span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (!tpcb)</span><br><span class="line">		&#123;</span><br><span class="line">			xil_printf(<span class="string">&quot;error connect.\r\n&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			packet_index++;</span><br><span class="line">			//clear the axidma <span class="keyword">done</span> flag</span><br><span class="line">			packet_trans_done = 0;</span><br><span class="line">			data_flag = 1;</span><br><span class="line"></span><br><span class="line">			//initial the other axidma transmission when the current transmission is <span class="keyword">done</span></span><br><span class="line">			sleep(1); 										//这里需要一个等待时间，等待DMA传输完成</span><br><span class="line">			Status = XAxiDma_SimpleTransfer(&amp;AxiDma, (u32)RxBufferPtr[(packet_index + 1)&amp;1],</span><br><span class="line">						(u32)(PAKET_LENGTH), XAXIDMA_DEVICE_TO_DMA);</span><br><span class="line">			<span class="keyword">if</span> (Status != XST_SUCCESS)</span><br><span class="line">			&#123;</span><br><span class="line">				xil_printf(<span class="string">&quot;axi dma %d failed! %d \r\n&quot;</span>, (packet_index + 1), Status);</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(data_flag)  <span class="comment">#UDP发送</span></span><br><span class="line">	&#123;</span><br><span class="line">		//xil_printf(<span class="string">&quot;data_output.\r\n&quot;</span>);</span><br><span class="line">		pbuf_to_be_sent = pbuf_alloc(PBUF_TRANSPORT, SEND_SIZE, PBUF_POOL);</span><br><span class="line">		memset(pbuf_to_be_sent-&gt;payload, 0, SEND_SIZE);</span><br><span class="line">		memcpy(pbuf_to_be_sent-&gt;payload, (u16 *)p_data, SEND_SIZE);</span><br><span class="line"></span><br><span class="line">		err = udp_send(tpcb, pbuf_to_be_sent);</span><br><span class="line">		<span class="keyword">if</span> (err != ERR_OK) &#123;</span><br><span class="line">			xil_printf(<span class="string">&quot;Error on udp send : %d\r\n&quot;</span>, err);</span><br><span class="line">			pbuf_free(pbuf_to_be_sent);</span><br><span class="line">			<span class="built_in">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		pbuf_free(pbuf_to_be_sent);  //释放pbuf</span><br><span class="line">		data_flag = 0;</span><br><span class="line">		packet_trans_done = 0;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.user_udp.h内容如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#ifndef SRC_USER_UDP_H_</span></span><br><span class="line"><span class="comment">#define SRC_USER_UDP_H_</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#include &quot;lwip/err.h&quot;</span></span><br><span class="line"><span class="comment">#include &quot;lwip/udp.h&quot;</span></span><br><span class="line"><span class="comment">#include &quot;lwip/init.h&quot;</span></span><br><span class="line"><span class="comment">#include &quot;lwipopts.h&quot;</span></span><br><span class="line"><span class="comment">#include &quot;lwip/err.h&quot;</span></span><br><span class="line"><span class="comment">#include &quot;lwipopts.h&quot;</span></span><br><span class="line"><span class="comment">#include &quot;netif/xadapter.h&quot;</span></span><br><span class="line"><span class="comment">#include &quot;xil_printf.h&quot;</span></span><br><span class="line"></span><br><span class="line">int user_udp_init(void);</span><br><span class="line">void udp_printf(void);</span><br><span class="line"></span><br><span class="line"><span class="comment">#endif /* SRC_USER_UDP_H_ */</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>4.main.c内容如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include &quot;sleep.h&quot;</span></span><br><span class="line"><span class="comment">#include &quot;user_udp.h&quot;</span></span><br><span class="line"><span class="comment">#include &quot;sys_intr.h&quot;</span></span><br><span class="line"><span class="comment">#include &quot;dma_intr.h&quot;</span></span><br><span class="line"><span class="comment">#include &quot;timer_intr.h&quot;</span></span><br><span class="line"><span class="comment">#include &quot;sys_intr.h&quot;</span></span><br><span class="line"><span class="comment">#include &quot;xgpio.h&quot;</span></span><br><span class="line"></span><br><span class="line">extern unsigned udp_connected_flag;</span><br><span class="line">static  XScuTimer Timer;//timer</span><br><span class="line">static  XScuGic Intc;   //GIC</span><br><span class="line">static XGpio Gpio;</span><br><span class="line">XAxiDma AxiDma;</span><br><span class="line">u16 *RxBufferPtr[2];</span><br><span class="line"></span><br><span class="line"><span class="comment">#define TIMER_LOAD_VALUE    XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ / 8 //0.25S</span></span><br><span class="line"><span class="comment">#define AXI_GPIO_DEV_ID	        XPAR_AXI_GPIO_0_DEVICE_ID</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">void init_intr_sys(void)</span><br><span class="line">&#123;</span><br><span class="line">	DMA_Intr_Init(&amp;AxiDma,0);//initial interrupt system</span><br><span class="line">	Timer_init(&amp;Timer,TIMER_LOAD_VALUE,0);</span><br><span class="line">	Init_Intr_System(&amp;Intc); // initial DMA interrupt system</span><br><span class="line">	Setup_Intr_Exception(&amp;Intc);</span><br><span class="line">	DMA_Setup_Intr_System(&amp;Intc,&amp;AxiDma,0,RX_INTR_ID);//setup dma interrpt system</span><br><span class="line">	Timer_Setup_Intr_System(&amp;Intc,&amp;Timer,TIMER_IRPT_INTR);</span><br><span class="line">	DMA_Intr_Enable(&amp;Intc,&amp;AxiDma);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">	struct netif *netif, server_netif;</span><br><span class="line">	struct ip4_addr ipaddr, netmask, gw;</span><br><span class="line">	RxBufferPtr[0] = (u16 *)RX_BUFFER0_BASE;//初始化乒乓缓存地址</span><br><span class="line">	RxBufferPtr[1] = (u16 *)RX_BUFFER1_BASE;</span><br><span class="line"></span><br><span class="line">	/*  开发板MAC地址  */</span><br><span class="line">	unsigned char mac_ethernet_address [] =</span><br><span class="line">		&#123;0x00, 0x0a, 0x35, 0x00, 0x01, 0x02&#125;;</span><br><span class="line">	/*  开启中断系统  */</span><br><span class="line">	XGpio_Initialize(&amp;Gpio, AXI_GPIO_DEV_ID);//初始化AXI-GPIO</span><br><span class="line">	XGpio_SetDataDirection(&amp;Gpio, 1, 0);</span><br><span class="line">	init_intr_sys();</span><br><span class="line">	netif = &amp;server_netif;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	IP4_ADDR(&amp;ipaddr,  192, 168,   1, 10);</span><br><span class="line">	IP4_ADDR(&amp;netmask, 255, 255, 255, 0);</span><br><span class="line">	IP4_ADDR(&amp;gw,      192, 168,   1, 1);</span><br><span class="line"></span><br><span class="line">	lwip_init();   //初始化lwIP库</span><br><span class="line">	/* 添加网络接口并将其设置为默认接口 */</span><br><span class="line">	<span class="keyword">if</span> (!xemac_add(netif, &amp;ipaddr, &amp;netmask, &amp;gw, mac_ethernet_address, XPAR_XEMACPS_0_BASEADDR)) &#123;</span><br><span class="line">			xil_printf(<span class="string">&quot;Error adding N/W interface\r\n&quot;</span>);</span><br><span class="line">			<span class="built_in">return</span> -1;</span><br><span class="line">	&#125;</span><br><span class="line">	netif_set_default(netif);</span><br><span class="line">	netif_set_up(netif);        //启动网络</span><br><span class="line">	user_udp_init();            //初始化UDP</span><br><span class="line"></span><br><span class="line">	XGpio_DiscreteWrite(&amp;Gpio, 1, 1);</span><br><span class="line">	Timer_start(&amp;Timer);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(1)</span><br><span class="line">	&#123;</span><br><span class="line">		/*  将MAC队列中的包传输的LwIP/IP栈中   */</span><br><span class="line">		xemacif_input(netif);</span><br><span class="line">		<span class="keyword">if</span> (udp_connected_flag) &#123; //发送</span><br><span class="line">			//xil_printf(<span class="string">&quot;work!\r\n&quot;</span>);</span><br><span class="line">			udp_printf();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">return</span> 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>5.项目工程打包<br>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1D3mUNx8MYYI7GaYEgrvjdw">https://pan.baidu.com/s/1D3mUNx8MYYI7GaYEgrvjdw</a><br>提取码：1sr6</p>
+<h2 id="实验结果及分析"><a href="#实验结果及分析" class="headerlink" title="实验结果及分析"></a>实验结果及分析</h2><p>1.上位机显示结果</p>
+<p>2.结果分析<br>UDP移植并不算完全成功，虽然能够运行，但是在串口处会提示“last transmission has not finished!”猜想是在DMA的第一次传输处存在问题，未解决。 此外UDP发送中大约在第1500位后的数据全都被清零，暂未发现原因，如果后面有解决再继续更新。</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="https://YakumoRed.github.io">YakumoRed</a>
+            <p>原文链接：<a href="https://yakumored.github.io/2021/11/30/ZYNQ-PL%E9%80%9A%E8%BF%87DMA%E5%92%8CUDP%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E8%87%B3PC/">https://yakumored.github.io/2021/11/30/ZYNQ-PL%E9%80%9A%E8%BF%87DMA%E5%92%8CUDP%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E8%87%B3PC/</a>
+            <p>发表日期：<a href="https://yakumored.github.io/2021/11/30/ZYNQ-PL%E9%80%9A%E8%BF%87DMA%E5%92%8CUDP%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E8%87%B3PC/">November 30th 2021, 7:29:08 pm</a>
+            <p>更新日期：<a href="https://yakumored.github.io/2021/11/30/ZYNQ-PL%E9%80%9A%E8%BF%87DMA%E5%92%8CUDP%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E8%87%B3PC/">November 30th 2021, 8:07:24 pm</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2021/11/21/ZYNQ-PL%E9%80%9A%E8%BF%87DMA%E5%92%8CTCP%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E8%87%B3PC/" title= "ZYNQ-PL通过DMA和TCP发送数据至PC">
+                    <div class="prevTitle">ZYNQ-PL通过DMA和TCP发送数据至PC</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- gitalk评论 -->
+
+    <!-- utteranc评论 -->
+
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <script>
+      (function(){
+        var time = document.getElementsByClassName('post-intro-time')[0]
+        if (time === undefined) { return; }
+        var post = document.getElementsByTagName("article")[0]
+        if (post === undefined) { return; }
+
+        var pubTime = new Date(time.innerText)
+        var now = Date.now()
+        var interval = parseInt(now - pubTime)
+        var days = parseInt(interval / 86400000)
+        var outdated_threshold = parseInt()
+        if (interval > outdated_threshold*24*3600*1000){
+          post.innerHTML = '<div class="note note-warning" style="font-size:0.9rem"><p>' +
+            '<div class="title">文章时效性提示</div><p>这是一篇发布于 ' + days + ' 天前的文章，部分信息可能已发生改变，请注意甄别。' +
+            '</p></p></div>' + post.innerHTML;
+        }
+      })();
+  </script>
+  
+</main>
+
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:1335062586@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/YakumoRed" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/weixin.png" />
+                </span>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer qq" title=qq>
+                  
+                  <img class="profile-qr" src="/assets/QQ.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://space.bilibili.com/3587793" class="iconfont-archer bilibili" target="_blank" title=bilibili></a>
+            
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="/%E8%BF%99%E6%98%AF%E4%B8%AA%E5%BD%A9%E8%9B%8B%EF%BC%81" class="iconfont-archer others" target="_blank" title=others></a>
+            
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PL%E7%AB%AF%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.</span> <span class="toc-text">PL端设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PS%E7%AB%AF%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.</span> <span class="toc-text">PS端设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C%E5%8F%8A%E5%88%86%E6%9E%90"><span class="toc-number">3.</span> <span class="toc-text">实验结果及分析</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer"></div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 10
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/30</span><a class="archive-post-title" href= "/2021/11/30/ZYNQ-PL%E9%80%9A%E8%BF%87DMA%E5%92%8CUDP%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E8%87%B3PC/" >ZYNQ-PL通过DMA和UDP发送数据至PC</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/2021/11/21/ZYNQ-PL%E9%80%9A%E8%BF%87DMA%E5%92%8CTCP%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E8%87%B3PC/" >ZYNQ-PL通过DMA和TCP发送数据至PC</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/16</span><a class="archive-post-title" href= "/2021/11/16/%E8%AE%B0%E5%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89IP%E5%AF%BC%E8%87%B4Vitis%E6%8A%A5%E9%94%99/" >记录自定义IP导致Vitis报错</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2021/11/15/%E8%AE%B0%E5%BD%95Vitis%20-%20Application%20creation%20failed/" >记录Vitis - Application creation failed</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/04</span><a class="archive-post-title" href= "/2021/11/04/2021%E7%94%B5%E8%B5%9BD-%E9%A2%98%E3%80%8A%E5%9F%BA%E4%BA%8E%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E6%91%84%E5%83%8F%E6%B5%8B%E9%87%8F%E7%B3%BB%E7%BB%9F%E3%80%8B/" >2021电赛D 题《基于互联网的摄像测量系统》</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/2021/11/03/ZYNQ-UDP%E4%BC%A0%E8%BE%93%E4%B8%8E%E5%AD%98%E5%82%A8/" >ZYNQ-UDP传输与存储</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/2021/10/27/ZYNQ-UDP%E5%8F%91%E9%80%81hello%20world/" >ZYNQ-UDP发送hello world</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/26</span><a class="archive-post-title" href= "/2021/09/26/Vivado%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%A4%9A%E6%95%B0%E8%A1%A8%E5%86%B3%E5%99%A8/" >Vivado练习：多数表决器</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/24</span><a class="archive-post-title" href= "/2021/09/24/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/" >测试文章</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href= "/2021/03/24/Aracher%E9%A3%9F%E7%94%A8%E6%8C%87%E5%8C%97/" >Aracher主题应用指北</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="Hexo主题"><span class="iconfont-archer">&#xe606;</span>Hexo主题</span>
+    
+        <span class="sidebar-tag-name" data-tags="测试"><span class="iconfont-archer">&#xe606;</span>测试</span>
+    
+        <span class="sidebar-tag-name" data-tags="Vivado"><span class="iconfont-archer">&#xe606;</span>Vivado</span>
+    
+        <span class="sidebar-tag-name" data-tags="练习"><span class="iconfont-archer">&#xe606;</span>练习</span>
+    
+        <span class="sidebar-tag-name" data-tags="ZYNQ"><span class="iconfont-archer">&#xe606;</span>ZYNQ</span>
+    
+        <span class="sidebar-tag-name" data-tags="UDP"><span class="iconfont-archer">&#xe606;</span>UDP</span>
+    
+        <span class="sidebar-tag-name" data-tags="BRAM"><span class="iconfont-archer">&#xe606;</span>BRAM</span>
+    
+        <span class="sidebar-tag-name" data-tags="Vitis"><span class="iconfont-archer">&#xe606;</span>Vitis</span>
+    
+        <span class="sidebar-tag-name" data-tags="报错"><span class="iconfont-archer">&#xe606;</span>报错</span>
+    
+        <span class="sidebar-tag-name" data-tags="竞赛"><span class="iconfont-archer">&#xe606;</span>竞赛</span>
+    
+        <span class="sidebar-tag-name" data-tags="DMA"><span class="iconfont-archer">&#xe606;</span>DMA</span>
+    
+        <span class="sidebar-tag-name" data-tags="TCP"><span class="iconfont-archer">&#xe606;</span>TCP</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "YakumoRed"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
