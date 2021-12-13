@@ -20,37 +20,19 @@
     <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="很懒，什么都没留下。">
-    <meta name="description" content="本篇主要记录了PL产生数据的过程，在PL端添加自定义IP产生数据送入DMA，再由PS读取后经过TCP传输至PC端的上位机中环境：Vivado2020.2，Vitis，Miz701N">
-<meta property="og:type" content="article">
-<meta property="og:title" content="ZYNQ-PL通过DMA和TCP发送数据至PC">
-<meta property="og:url" content="https://yakumored.github.io/2021/11/21/ZYNQ-PL%E9%80%9A%E8%BF%87DMA%E5%92%8CTCP%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E8%87%B3PC/index.html">
+    <meta name="description" content="很懒，什么都没留下。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="人间之里">
+<meta property="og:url" content="https://yakumored.github.io/tags/ILA/index.html">
 <meta property="og:site_name" content="人间之里">
-<meta property="og:description" content="本篇主要记录了PL产生数据的过程，在PL端添加自定义IP产生数据送入DMA，再由PS读取后经过TCP传输至PC端的上位机中环境：Vivado2020.2，Vitis，Miz701N">
+<meta property="og:description" content="很懒，什么都没留下。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://yakumored.github.io/pic/PL2PC_tcp/1.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/PL2PC_tcp/2.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/PL2PC_tcp/3.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/PL2PC_tcp/4.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/PL2PC_tcp/5.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/PL2PC_tcp/6.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/PL2PC_tcp/7.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/PL2PC_tcp/8.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/PL2PC_tcp/9.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/PL2PC_tcp/10.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/PL2PC_tcp/11.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/PL2PC_tcp/12.png">
-<meta property="article:published_time" content="2021-11-21T00:39:59.000Z">
-<meta property="article:modified_time" content="2021-11-30T12:06:31.474Z">
 <meta property="article:author" content="YakumoRed">
-<meta property="article:tag" content="ZYNQ">
-<meta property="article:tag" content="DMA">
-<meta property="article:tag" content="TCP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yakumored.github.io/pic/PL2PC_tcp/1.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     
-    <title>ZYNQ-PL通过DMA和TCP发送数据至PC · YakumoRed&#39;s blog</title>
+    <title>YakumoRed&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -232,23 +214,12 @@
 <meta name="generator" content="Hexo 5.4.0"></head>
 
     
-        <body class="post-body">
-    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
-    
-    <div class="banner">
-            <div class="blog-title">
-                <a href="/" >人间之里</a>
-            </div>
-            <div class="post-title">
-                <a href="#" class="post-name">ZYNQ-PL通过DMA和TCP发送数据至PC</a>
-            </div>
-    </div>
     
     <a class="home-link" href=/>人间之里</a>
 </header>
@@ -260,78 +231,24 @@
 
 
 
-
-height:50vh;
 ">
     
     <!-- 主页  -->
-    
-    
-    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/post-bg.png)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
-            
-            ZYNQ-PL通过DMA和TCP发送数据至PC
-            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
-            
-            <!-- 404 -->
-            
         </p>
         <!-- 文章页meta -->
-        
-            <div class="post-intros">
-                <!-- 文章页标签  -->
-                
-                    <div class= post-intro-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ZYNQ">ZYNQ</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "DMA">DMA</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "TCP">TCP</a>
-    
-</div>
-                
-                
-                    <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">521</span>Reading time: <span class="post-count reading-time">2 min</span></span>
-                    </div>
-                
-                <div class="post-intro-meta">
-                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2021/11/21</span>
-                    
-                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
-                        <span class="iconfont-archer">&#xe602;</span>
-                        <span id="busuanzi_value_page_pv"></span>
-                    </span>
-                    
-                    <span class="shareWrapper">
-                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
-                        <span class="shareText">Share</span>
-                        <ul class="shareList">
-                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
-                                <div class="share-qrcode"></div>
-                            </li>
-                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
-                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
-                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
-                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
         
     </div>
 </div>
@@ -432,114 +349,42 @@ height:50vh;
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main post-page">
-    <article class="article-entry">
-        <p>本篇主要记录了PL产生数据的过程，在PL端添加自定义IP产生数据送入DMA，再由PS读取后经过TCP传输至PC端的上位机中<br>环境：Vivado2020.2，Vitis，Miz701N</p>
-<span id="more"></span>
-
-<h2 id="PL端设计"><a href="#PL端设计" class="headerlink" title="PL端设计"></a>PL端设计</h2><p>1.添加CPU,配置如下</p>
-<p>添加HP接口<br><img src="/pic/PL2PC_tcp/1.png" alt="添加HP接口"></p>
-<hr>
-<p>添加网口及串口<br><img src="/pic/PL2PC_tcp/2.png" alt="添加网口及串口"></p>
-<hr>
-<p>注意电压<br><img src="/pic/PL2PC_tcp/3.png" alt="注意电压"></p>
-<hr>
-<p>配置时钟<br><img src="/pic/PL2PC_tcp/4.png" alt="配置时钟"></p>
-<hr>
-<p>使能中断<br><img src="/pic/PL2PC_tcp/5.png" alt="使能中断"></p>
-<hr>
-<p>这里根据个人板子设置<br><img src="/pic/PL2PC_tcp/6.png" alt="根据个人板子设置"></p>
-<hr>
-<p>2.添加GPIO,位宽为1,设置为ALL Outputs</p>
-<p><img src="/pic/PL2PC_tcp/7.png" alt="图片"></p>
-<p>3.添加DMA,仅配写通道,其余配置如下</p>
-<p><img src="/pic/PL2PC_tcp/8.png" alt="图片"></p>
-<p>4.添加DATA_FIFO,配置如下</p>
-<p><img src="/pic/PL2PC_tcp/9.png" alt="图片"></p>
-<p>5.添加DATA_OUT.v文件并导出成模块,该模块的功能为产生1-1024个数并将数存入FIFO中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">module DATA_OUT(</span><br><span class="line">input clk,</span><br><span class="line">input rst,</span><br><span class="line">input start,</span><br><span class="line">input S_AXIS_tready,</span><br><span class="line">output S_AXIS_tvalid,</span><br><span class="line">output S_AXIS_tlast,</span><br><span class="line">output [31:0] S_AXIS_tdata</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">reg S_AXIS_tvalid;</span><br><span class="line">reg S_AXIS_tlast;</span><br><span class="line">reg [31:0] S_AXIS_tdata;</span><br><span class="line">reg [1:0] state;</span><br><span class="line"></span><br><span class="line">always@(posedge clk) begin</span><br><span class="line">  <span class="keyword">if</span>(!rst) begin </span><br><span class="line">    S_AXIS_tvalid &lt;= 1<span class="string">&#x27;b0;</span></span><br><span class="line"><span class="string">    S_AXIS_tlast &lt;= 1&#x27;</span>b0;</span><br><span class="line">    S_AXIS_tdata &lt;= 32<span class="string">&#x27;d0;</span></span><br><span class="line"><span class="string">    state &lt;= 0;</span></span><br><span class="line"><span class="string">  end</span></span><br><span class="line"><span class="string">  else begin</span></span><br><span class="line"><span class="string">    case(state) //状态机</span></span><br><span class="line"><span class="string">    0: begin</span></span><br><span class="line"><span class="string">      if(start&amp;&amp;S_AXIS_tready) begin //启动信号到来且FIFO可写</span></span><br><span class="line"><span class="string">        S_AXIS_tvalid &lt;= 1&#x27;</span>b1;       //设置写FIFO有效</span><br><span class="line">        state &lt;= 1;</span><br><span class="line">      end</span><br><span class="line">      <span class="keyword">else</span> begin</span><br><span class="line">        S_AXIS_tvalid &lt;= 1<span class="string">&#x27;b0;</span></span><br><span class="line"><span class="string">        state &lt;= 0;</span></span><br><span class="line"><span class="string">      end</span></span><br><span class="line"><span class="string">    end</span></span><br><span class="line"><span class="string">    1:begin</span></span><br><span class="line"><span class="string">      if(S_AXIS_tready) begin //FIFO可写</span></span><br><span class="line"><span class="string">        S_AXIS_tdata &lt;= S_AXIS_tdata + 32&#x27;</span>b1;</span><br><span class="line">        <span class="keyword">if</span>(S_AXIS_tdata == 32<span class="string">&#x27;d1000) begin //判断是否结束</span></span><br><span class="line"><span class="string">          S_AXIS_tlast &lt;= 1&#x27;</span>b1;//发送最后一个数据</span><br><span class="line">          state &lt;= 2;</span><br><span class="line">        end</span><br><span class="line">        <span class="keyword">else</span> begin//等待数据发完</span><br><span class="line">          S_AXIS_tlast &lt;= 1<span class="string">&#x27;b0;</span></span><br><span class="line"><span class="string">          state &lt;= 1;</span></span><br><span class="line"><span class="string">        end</span></span><br><span class="line"><span class="string">      end</span></span><br><span class="line"><span class="string">      else begin//等待FIFO可写</span></span><br><span class="line"><span class="string">        S_AXIS_tdata &lt;= S_AXIS_tdata;</span></span><br><span class="line"><span class="string">        state &lt;= 1;</span></span><br><span class="line"><span class="string">      end</span></span><br><span class="line"><span class="string">    end</span></span><br><span class="line"><span class="string">    2:begin</span></span><br><span class="line"><span class="string">      if(!S_AXIS_tready) begin //FIFO满则等待</span></span><br><span class="line"><span class="string">        S_AXIS_tvalid &lt;= 1&#x27;</span>b1;</span><br><span class="line">        S_AXIS_tlast &lt;= 1<span class="string">&#x27;b1;</span></span><br><span class="line"><span class="string">        S_AXIS_tdata &lt;= S_AXIS_tdata;</span></span><br><span class="line"><span class="string">        state &lt;= 2;</span></span><br><span class="line"><span class="string">      end</span></span><br><span class="line"><span class="string">      else begin //写入结束</span></span><br><span class="line"><span class="string">        S_AXIS_tvalid &lt;= 1&#x27;</span>b0;</span><br><span class="line">        S_AXIS_tlast &lt;= 1<span class="string">&#x27;b0;</span></span><br><span class="line"><span class="string">        S_AXIS_tdata &lt;= 16&#x27;</span>d0;</span><br><span class="line">        state &lt;= 0;</span><br><span class="line">      end</span><br><span class="line">    end</span><br><span class="line">    default: state &lt;=0;</span><br><span class="line">    endcase</span><br><span class="line">  end</span><br><span class="line">end</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure>
-<p>7.整体系统框图及连线如下</p>
-<p><img src="/pic/PL2PC_tcp/10.png" alt="图片"></p>
-<h2 id="PS端设计"><a href="#PS端设计" class="headerlink" title="PS端设计"></a>PS端设计</h2><p>PS端设计主要直接参考米联客教程S03_CH08_DMA_LWIP 以太网传输，相关的PS端代码及vivado工程放在下面的百度盘中了，注意上位机设置参考下面上位机显示结果，地址192.168.1.209，端口号7</p>
-<p>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1zaveCDPE4Ut0odZ-Vncpvg">https://pan.baidu.com/s/1zaveCDPE4Ut0odZ-Vncpvg</a><br>提取码：7jgu </p>
-<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p>1.上位机显示结果</p>
-<p><img src="/pic/PL2PC_tcp/11.png" alt="图片"></p>
-<p>2.内存数据</p>
-<p><img src="/pic/PL2PC_tcp/12.png" alt="图片"></p>
-
-    </article>
-    <!-- license  -->
+            <main class="main index-page">
     
-        <div class="license-wrapper">
-            <p>Author：<a href="https://YakumoRed.github.io">YakumoRed</a>
-            <p>原文链接：<a href="https://yakumored.github.io/2021/11/21/ZYNQ-PL%E9%80%9A%E8%BF%87DMA%E5%92%8CTCP%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E8%87%B3PC/">https://yakumored.github.io/2021/11/21/ZYNQ-PL%E9%80%9A%E8%BF%87DMA%E5%92%8CTCP%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E8%87%B3PC/</a>
-            <p>发表日期：<a href="https://yakumored.github.io/2021/11/21/ZYNQ-PL%E9%80%9A%E8%BF%87DMA%E5%92%8CTCP%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E8%87%B3PC/">November 21st 2021, 8:39:59 am</a>
-            <p>更新日期：<a href="https://yakumored.github.io/2021/11/21/ZYNQ-PL%E9%80%9A%E8%BF%87DMA%E5%92%8CTCP%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E8%87%B3PC/">November 30th 2021, 8:06:31 pm</a>
-            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href = "/2021/12/13/ZYNQ-OV7725%E5%9B%BE%E5%83%8F%E9%87%87%E9%9B%86ILA%E9%AA%8C%E8%AF%81/" >
+            
+                <span>ZYNQ-OV7725图像采集ILA验证</span>
+        </a>
+        <div class="abstract-content">
+            <p>本篇接着上篇OV7725图像采集，主要记录了使用ILA验证编写的OV7725模块<br>环境：Vivado2020.2，Vitis，Miz701N</p>
         </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2021/12/13</span>
+            </div>
+            <!-- tags  -->
+            
+            <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ZYNQ">ZYNQ</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ILA">ILA</a>
+    
+</div>
+            
+        </div>
+    </article>
     
     <!-- paginator  -->
-    <ul class="post-paginator">
-        <li class="next">
-            
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2021/11/30/ZYNQ-PL%E9%80%9A%E8%BF%87DMA%E5%92%8CUDP%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E8%87%B3PC/" title= "ZYNQ-PL通过DMA和UDP发送数据至PC">
-                    <div class="nextTitle">ZYNQ-PL通过DMA和UDP发送数据至PC</div>
-                </a>
-            
-        </li>
-        <li class="previous">
-            
-                <div class="prevSlogan">Previous Post</div>
-                <a href= "/2021/11/16/%E8%AE%B0%E5%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89IP%E5%AF%BC%E8%87%B4Vitis%E6%8A%A5%E9%94%99/" title= "记录自定义IP导致Vitis报错">
-                    <div class="prevTitle">记录自定义IP导致Vitis报错</div>
-                </a>
-            
-        </li>
-    </ul>
-    <!-- 评论插件 -->
-    <!-- 来必力City版安装代码 -->
-
-<!-- City版安装代码已完成 -->
     
-    
-    <!-- gitalk评论 -->
-
-    <!-- utteranc评论 -->
-
-    <!-- partial('_partial/comment/changyan') -->
-    <!--PC版-->
-
-
-    
-    
-
-    <!-- 评论 -->
-
-    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
-    
-    <script>
-      (function(){
-        var time = document.getElementsByClassName('post-intro-time')[0]
-        if (time === undefined) { return; }
-        var post = document.getElementsByTagName("article")[0]
-        if (post === undefined) { return; }
-
-        var pubTime = new Date(time.innerText)
-        var now = Date.now()
-        var interval = parseInt(now - pubTime)
-        var days = parseInt(interval / 86400000)
-        var outdated_threshold = parseInt()
-        if (interval > outdated_threshold*24*3600*1000){
-          post.innerHTML = '<div class="note note-warning" style="font-size:0.9rem"><p>' +
-            '<div class="title">文章时效性提示</div><p>这是一篇发布于 ' + days + ' 天前的文章，部分信息可能已发生改变，请注意甄别。' +
-            '</p></p></div>' + post.innerHTML;
-        }
-      })();
-  </script>
-  
 </main>
-
             <!-- profile -->
             
         </div>
@@ -638,24 +483,6 @@ height:50vh;
 </footer>
     </div>
     <!-- toc -->
-    
-    <div class="toc-wrapper" style=
-    
-
-
-
-
-
-
-
-top:50vh;
-
-    >
-        <div class="toc-catalog">
-            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-        </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PL%E7%AB%AF%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.</span> <span class="toc-text">PL端设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PS%E7%AB%AF%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.</span> <span class="toc-text">PS端设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="toc-number">3.</span> <span class="toc-text">实验结果</span></a></li></ol>
-    </div>
     
     <div class="back-top iconfont-archer"></div>
     <div class="sidebar sidebar-hide">
@@ -953,8 +780,6 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
-    
-        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>

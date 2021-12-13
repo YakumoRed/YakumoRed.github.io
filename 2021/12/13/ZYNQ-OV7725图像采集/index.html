@@ -40,6 +40,7 @@
 <meta property="og:image" content="https://yakumored.github.io/pic/zynq_ov7725/11.png">
 <meta property="og:image" content="https://yakumored.github.io/pic/zynq_ov7725/12.png">
 <meta property="og:image" content="https://yakumored.github.io/pic/zynq_ov7725/13.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/zynq_ov7725/20.png">
 <meta property="og:image" content="https://yakumored.github.io/pic/zynq_ov7725/15.png">
 <meta property="og:image" content="https://yakumored.github.io/pic/zynq_ov7725/14.png">
 <meta property="og:image" content="https://yakumored.github.io/pic/zynq_ov7725/16.png">
@@ -47,7 +48,7 @@
 <meta property="og:image" content="https://yakumored.github.io/pic/zynq_ov7725/18.png">
 <meta property="og:image" content="https://yakumored.github.io/pic/zynq_ov7725/19.png">
 <meta property="article:published_time" content="2021-12-13T00:49:40.000Z">
-<meta property="article:modified_time" content="2021-12-13T02:11:19.181Z">
+<meta property="article:modified_time" content="2021-12-13T04:32:41.599Z">
 <meta property="article:author" content="YakumoRed">
 <meta property="article:tag" content="ZYNQ">
 <meta property="article:tag" content="图像">
@@ -463,14 +464,15 @@ height:50vh;
 <p>6.引出图像采集引脚以及FCLK1、GPIO_0引脚，并修改名字<br><img src="/pic/zynq_ov7725/10.png" alt="图片"></p>
 <p><img src="/pic/zynq_ov7725/11.png" alt="图片"></p>
 <hr>
-<p>7.设置完成后执行Run Block Automation和Run Connection Automation，完成连线后如图<br>注：这里的rst_n信号可能需要手动连接至系统复位这<br><img src="/pic/zynq_ov7725/12.png" alt="图片"></p>
+<p>7.设置完成后执行Run Block Automation和Run Connection Automation，完成连线后如图，接着对BD文件执行Generate Output Products + Greate HDL Wrapper<br>注：这里的rst_n信号可能需要手动连接至系统复位这<br><img src="/pic/zynq_ov7725/12.png" alt="图片"></p>
 <p><img src="/pic/zynq_ov7725/13.png" alt="图片"></p>
+<p><img src="/pic/zynq_ov7725/20.png" alt="图片"></p>
 <hr>
 <p>8.添加引脚约束文件，具体代码如下<br><img src="/pic/zynq_ov7725/15.png" alt="图片"></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># &quot;CMOS_SCL&quot;</span></span><br><span class="line">set_property PACKAGE_PIN L14 [get_ports &#123;emio_sccb_tri_io[0]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports &#123;emio_sccb_tri_io[0]&#125;]</span><br><span class="line">set_property PULLUP <span class="literal">true</span> [get_ports &#123;emio_sccb_tri_io[0]&#125;]</span><br><span class="line"><span class="comment"># &quot;CMOS_SDAT&quot;</span></span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports &#123;emio_sccb_tri_io[1]&#125;]</span><br><span class="line">set_property PACKAGE_PIN L15 [get_ports &#123;emio_sccb_tri_io[1]&#125;]</span><br><span class="line">set_property PULLUP <span class="literal">true</span> [get_ports &#123;emio_sccb_tri_io[1]&#125;]</span><br><span class="line"><span class="comment"># &quot;CMOS_VSYNC&quot;</span></span><br><span class="line">set_property PACKAGE_PIN B19 [get_ports cam_vsync]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports cam_vsync]</span><br><span class="line"><span class="comment"># &quot;CMOS_HREF&quot;</span></span><br><span class="line">set_property PACKAGE_PIN A20 [get_ports cam_href]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports cam_href]</span><br><span class="line"><span class="comment"># &quot;CMOS_PCLK&quot;</span></span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports cam_pclk]</span><br><span class="line">set_property PACKAGE_PIN F16 [get_ports cam_pclk]</span><br><span class="line"><span class="comment"># &quot;CMOS_XCLK&quot;</span></span><br><span class="line">set_property PACKAGE_PIN F17 [get_ports cmos_xclk_o]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports cmos_xclk_o]</span><br><span class="line"><span class="comment"># &quot;CMOS_DB[0]&quot;</span></span><br><span class="line">set_property PACKAGE_PIN G18 [get_ports &#123;cam_data[0]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports &#123;cam_data[0]&#125;]</span><br><span class="line"><span class="comment"># &quot;CMOS_DB[1]&quot;</span></span><br><span class="line">set_property PACKAGE_PIN G17 [get_ports &#123;cam_data[1]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports &#123;cam_data[1]&#125;]</span><br><span class="line"><span class="comment"># &quot;CMOS_DB[2]&quot;</span></span><br><span class="line">set_property PACKAGE_PIN E19 [get_ports &#123;cam_data[2]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports &#123;cam_data[2]&#125;]</span><br><span class="line"><span class="comment"># &quot;CMOS_DB[3]&quot;</span></span><br><span class="line">set_property PACKAGE_PIN E18 [get_ports &#123;cam_data[3]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports &#123;cam_data[3]&#125;]</span><br><span class="line"><span class="comment"># &quot;CMOS_DB[4]&quot;</span></span><br><span class="line">set_property PACKAGE_PIN D20 [get_ports &#123;cam_data[4]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports &#123;cam_data[4]&#125;]</span><br><span class="line"><span class="comment"># &quot;CMOS_DB[5]&quot;</span></span><br><span class="line">set_property PACKAGE_PIN D19 [get_ports &#123;cam_data[5]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports &#123;cam_data[5]&#125;]</span><br><span class="line"><span class="comment"># &quot;CMOS_DB[6]&quot;</span></span><br><span class="line">set_property PACKAGE_PIN B20 [get_ports &#123;cam_data[6]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports &#123;cam_data[6]&#125;]</span><br><span class="line"><span class="comment"># &quot;CMOS_DB[7]&quot;</span></span><br><span class="line">set_property PACKAGE_PIN C20 [get_ports &#123;cam_data[7]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports &#123;cam_data[7]&#125;]</span><br><span class="line"></span><br><span class="line"><span class="comment">#create_clock -period 40.000 -name ov_pclk [get_ports cam_pclk]</span></span><br><span class="line">set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets cam_pclk_IBUF]</span><br></pre></td></tr></table></figure>
 
 <hr>
-<p>9.生成bit文件后导出致Vitis</p>
+<p>9.生成bit文件后导出致Vitis，到此完成PL端设计</p>
 <hr>
 <p>小技巧：右键，点击Regenerate Layout能够让你的界面自动布局<br><img src="/pic/zynq_ov7725/14.png" alt="图片"></p>
 <hr>
@@ -490,13 +492,18 @@ height:50vh;
             <p>Author：<a href="https://YakumoRed.github.io">YakumoRed</a>
             <p>原文链接：<a href="https://yakumored.github.io/2021/12/13/ZYNQ-OV7725%E5%9B%BE%E5%83%8F%E9%87%87%E9%9B%86/">https://yakumored.github.io/2021/12/13/ZYNQ-OV7725%E5%9B%BE%E5%83%8F%E9%87%87%E9%9B%86/</a>
             <p>发表日期：<a href="https://yakumored.github.io/2021/12/13/ZYNQ-OV7725%E5%9B%BE%E5%83%8F%E9%87%87%E9%9B%86/">December 13th 2021, 8:49:40 am</a>
-            <p>更新日期：<a href="https://yakumored.github.io/2021/12/13/ZYNQ-OV7725%E5%9B%BE%E5%83%8F%E9%87%87%E9%9B%86/">December 13th 2021, 10:11:19 am</a>
+            <p>更新日期：<a href="https://yakumored.github.io/2021/12/13/ZYNQ-OV7725%E5%9B%BE%E5%83%8F%E9%87%87%E9%9B%86/">December 13th 2021, 12:32:41 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
     <!-- paginator  -->
     <ul class="post-paginator">
         <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2021/12/13/ZYNQ-OV7725%E5%9B%BE%E5%83%8F%E9%87%87%E9%9B%86ILA%E9%AA%8C%E8%AF%81/" title= "ZYNQ-OV7725图像采集ILA验证">
+                    <div class="nextTitle">ZYNQ-OV7725图像采集ILA验证</div>
+                </a>
             
         </li>
         <li class="previous">
@@ -773,9 +780,16 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 13
+        Total : 14
         </div>
         <!-- search  -->
         
@@ -788,6 +802,11 @@ top:50vh;
     
     <div class="archive-year"> 2021 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/13</span><a class="archive-post-title" href= "/2021/12/13/ZYNQ-OV7725%E5%9B%BE%E5%83%8F%E9%87%87%E9%9B%86ILA%E9%AA%8C%E8%AF%81/" >ZYNQ-OV7725图像采集ILA验证</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -884,6 +903,8 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="TCP"><span class="iconfont-archer">&#xe606;</span>TCP</span>
     
         <span class="sidebar-tag-name" data-tags="图像"><span class="iconfont-archer">&#xe606;</span>图像</span>
+    
+        <span class="sidebar-tag-name" data-tags="ILA"><span class="iconfont-archer">&#xe606;</span>ILA</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
