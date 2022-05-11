@@ -20,46 +20,56 @@
     <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
     
     <meta name="description" content="很懒，什么都没留下。">
-    <meta name="description" content="本篇记录从零开始的OV7725图像采集过程。环境：Vivado2020.2，Miz701N">
+    <meta name="description" content="本篇记录是从零开始的OV7725图像采集篇的第二部分。环境：Vivado2020.2，Miz701N">
 <meta property="og:type" content="article">
-<meta property="og:title" content="从零开始OV7725模块采集、传输、显示(采集篇)">
-<meta property="og:url" content="https://yakumored.github.io/2022/05/03/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8BOV7725%E6%A8%A1%E5%9D%97%E9%87%87%E9%9B%86%E3%80%81%E4%BC%A0%E8%BE%93%E3%80%81%E6%98%BE%E7%A4%BA(%E9%87%87%E9%9B%86%E7%AF%87)/index.html">
+<meta property="og:title" content="从零开始OV7725模块采集、传输、显示(采集篇、二)">
+<meta property="og:url" content="https://yakumored.github.io/2022/05/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8BOV7725%E6%A8%A1%E5%9D%97%E9%87%87%E9%9B%86%E3%80%81%E4%BC%A0%E8%BE%93%E3%80%81%E6%98%BE%E7%A4%BA(%E9%87%87%E9%9B%86%E7%AF%87%E4%BA%8C)/index.html">
 <meta property="og:site_name" content="人间之里">
-<meta property="og:description" content="本篇记录从零开始的OV7725图像采集过程。环境：Vivado2020.2，Miz701N">
+<meta property="og:description" content="本篇记录是从零开始的OV7725图像采集篇的第二部分。环境：Vivado2020.2，Miz701N">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado/1.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado/2.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado/3.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado/4.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado/13.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado/14.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado/15.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado/16.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado/17.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado/5.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado/6.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado/7.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado/8.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado/9.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado/10.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado/11.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado/12.png">
 <meta property="og:image" content="https://yakumored.github.io/pic/zynq_ov7725_qt_project/vivado/3.png">
 <meta property="og:image" content="https://yakumored.github.io/pic/zynq_ov7725_qt_project/vivado/4.png">
 <meta property="og:image" content="https://yakumored.github.io/pic/zynq_ov7725_qt_project/vivado/5.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/zynq_ov7725_qt_project/vivado/18.png">
-<meta property="og:image" content="https://yakumored.github.io/pic/zynq_ov7725_qt_project/vivado/19.png">
-<meta property="article:published_time" content="2022-05-03T02:32:55.000Z">
-<meta property="article:modified_time" content="2022-05-03T07:18:53.057Z">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/1.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/2.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/3.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/4.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/5.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/6.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/7.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/8.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/9.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/10.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/11.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/12.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/13.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/14.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/15.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/16.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/17.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/18.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/19.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/20.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/21.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/22.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/23.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/24.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/25.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/26.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/27.png">
+<meta property="og:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado2/28.png">
+<meta property="article:published_time" content="2022-05-10T02:29:30.000Z">
+<meta property="article:modified_time" content="2022-05-11T02:59:51.943Z">
 <meta property="article:author" content="YakumoRed">
 <meta property="article:tag" content="ZYNQ">
 <meta property="article:tag" content="图像">
+<meta property="article:tag" content="从零">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://yakumored.github.io/pic/Start_OV7725/vivado/1.png">
+<meta name="twitter:image" content="https://yakumored.github.io/pic/zynq_ov7725_qt_project/vivado/3.png">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     
-    <title>从零开始OV7725模块采集、传输、显示(采集篇) · YakumoRed&#39;s blog</title>
+    <title>从零开始OV7725模块采集、传输、显示(采集篇、二) · YakumoRed&#39;s blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -255,7 +265,7 @@
                 <a href="/" >人间之里</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">从零开始OV7725模块采集、传输、显示(采集篇)</a>
+                <a href="#" class="post-name">从零开始OV7725模块采集、传输、显示(采集篇、二)</a>
             </div>
     </div>
     
@@ -285,7 +295,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            从零开始OV7725模块采集、传输、显示(采集篇)
+            从零开始OV7725模块采集、传输、显示(采集篇、二)
             <!-- 404 -->
             
         </h1>
@@ -308,16 +318,18 @@ height:50vh;
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "图像">图像</a>
     
+        <a class="post-tag" href="javascript:void(0);" data-tags = "从零">从零</a>
+    
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">1.1k</span>Reading time: <span class="post-count reading-time">4 min</span></span>
+                        <span>Word count: <span class="post-count word-count">1k</span>Reading time: <span class="post-count reading-time">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2022/05/03</span>
+                    <span class="post-intro-time">2022/05/10</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -441,36 +453,47 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>本篇记录从零开始的OV7725图像采集过程。<br>环境：Vivado2020.2，Miz701N</p>
+        <p>本篇记录是从零开始的OV7725图像采集篇的第二部分。<br>环境：Vivado2020.2，Miz701N</p>
 <span id="more"></span>
 
-<h2 id="新建工程"><a href="#新建工程" class="headerlink" title="新建工程"></a>新建工程</h2><p>1.打开 Vivado - Create Project-File - New Project 新建工程</p>
-<p><img src="/pic/Start_OV7725/vivado/1.png" alt="图片"></p>
-<p>2.出现一个设置向导，点击 Next，修改工程名, 修改存放路径，一路点击 Next</p>
-<p><img src="/pic/Start_OV7725/vivado/2.png" alt="图片"></p>
-<p>3.选择 RTL Project 并且勾选复选框，之后继续 Next</p>
-<p><img src="/pic/Start_OV7725/vivado/3.png" alt="图片"></p>
-<p>4.为你的项目选择一个器件，MIZ701N-7010 选择 Zynq-7000-xc7z010clg400-1</p>
-<p><img src="/pic/Start_OV7725/vivado/4.png" alt="图片"></p>
-<p>5.点击 Finish 完成新建工程</p>
-<h2 id="新建自定义IP"><a href="#新建自定义IP" class="headerlink" title="新建自定义IP"></a>新建自定义IP</h2><p>Step1：再新建一个工程如上步骤，这个工程用于创建我们的自定义IP核<br>Step2：单击 Add Source，选择 Add or Creat design Sources,然后单击 Next。<br>Step3：单击 Create File，输入文件名，点击OK。<br>Step4：单击 Finish，完成 Verilog 文件的创建。<br>Step5：打开.V文件，将以下代码复制入文本编辑区内。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line">module  OV7725_Capture(</span><br><span class="line">    input                 rst_n           ,  //复位信号</span><br><span class="line">    </span><br><span class="line">	//摄像头接口</span><br><span class="line">    input                 cam_pclk        ,  //cam 数据像素时钟</span><br><span class="line">    input                 cam_vsync       ,  //cam 场同步信号</span><br><span class="line">    input                 cam_href        ,  //cam 行同步信号</span><br><span class="line">    input        [7:0]    cam_data        ,  //cam 数据        </span><br><span class="line">    output                cam_rst_n       ,  //cmos 复位信号，低电平有效</span><br><span class="line">    output                cam_sgm_ctrl    ,  //cmos 时钟选择信号, 1:使用摄像头自带的晶振                     </span><br><span class="line">    </span><br><span class="line">	//RGB888接口</span><br><span class="line">    output                cmos_frame_clk,    //时钟信号</span><br><span class="line">    output                cmos_frame_ce,     //时钟使能信号</span><br><span class="line">    </span><br><span class="line">	output                cmos_vsync,        //场同步信号    </span><br><span class="line">    output                cmos_active_video ,//数据有效信号</span><br><span class="line">    output       [23:0]   cmos_data          //有效数据     </span><br><span class="line">	</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">//paremeter define</span><br><span class="line"></span><br><span class="line">//寄存器全部配置完成后，先等待10帧数据</span><br><span class="line">//待寄存器配置生效后再开始采集图像</span><br><span class="line">localparam  WAIT_FRAME = 4<span class="string">&#x27;d10  ;            //寄存器数据稳定等待的帧个数       </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">//reg define</span></span><br><span class="line"><span class="string">reg          cam_vsync_d0 ;</span></span><br><span class="line"><span class="string">reg          cam_vsync_d1 ;</span></span><br><span class="line"><span class="string">reg          cam_href_d0 ;</span></span><br><span class="line"><span class="string">reg          cam_href_d1 ;</span></span><br><span class="line"><span class="string">reg   [3:0]  cmos_ps_cnt ;                   //等待帧数稳定计数器</span></span><br><span class="line"><span class="string">reg          wait_done ;</span></span><br><span class="line"><span class="string">reg          byte_flag ;</span></span><br><span class="line"><span class="string">reg   [7:0]  cam_data_d0 ;             </span></span><br><span class="line"><span class="string">reg  [15:0]  cmos_data_16b ;                 //用于8位转16位的临时寄存器</span></span><br><span class="line"><span class="string">reg          byte_flag_d0 ;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">//wire define</span></span><br><span class="line"><span class="string">wire  pos_vsync ;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">//*****************************************************</span></span><br><span class="line"><span class="string">//**                    main code</span></span><br><span class="line"><span class="string">//*****************************************************</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">//不对摄像头硬件复位,固定高电平</span></span><br><span class="line"><span class="string">assign  cam_rst_n = 1&#x27;</span>b1;    </span><br><span class="line"></span><br><span class="line">//cmos 时钟选择信号,0:使用引脚XCLK提供的时钟 1:使用摄像头自带的晶振</span><br><span class="line">assign  cam_sgm_ctrl = 1<span class="string">&#x27;b1;</span></span><br><span class="line"><span class="string">assign  pos_vsync  = (~cam_vsync_d1) &amp; cam_vsync_d0 ;              //采输入场同步信号的上升沿</span></span><br><span class="line"><span class="string">assign  cmos_frame_clk   = cam_pclk; </span></span><br><span class="line"><span class="string">assign  cmos_frame_ce    = wait_done  ?  (byte_flag_d0 &amp; cmos_active_video) </span></span><br><span class="line"><span class="string">                           || (!cmos_active_video) : 1&#x27;</span>b0; </span><br><span class="line">assign  cmos_vsync = wait_done  ?  cam_vsync_d1  :  1<span class="string">&#x27;b0;          //输出帧有效信号</span></span><br><span class="line"><span class="string">assign  cmos_active_video  = wait_done  ?  cam_href_d1   :  1&#x27;</span>b0;  //输出数据有效信号</span><br><span class="line">assign  cmos_data  = wait_done  ?  </span><br><span class="line">	&#123; cmos_data_16b[15:11],3<span class="string">&#x27;d0 , cmos_data_16b[10:5],2&#x27;</span>d0 , cmos_data_16b[4:0],3<span class="string">&#x27;d0 &#125;   </span></span><br><span class="line"><span class="string">	:  24&#x27;</span>d0;                                                      //输出数据</span><br><span class="line"></span><br><span class="line">always @(posedge cam_pclk or negedge rst_n) begin</span><br><span class="line">    <span class="keyword">if</span>(!rst_n) begin</span><br><span class="line">        cam_vsync_d0 &lt;= 1<span class="string">&#x27;b0;</span></span><br><span class="line"><span class="string">        cam_vsync_d1 &lt;= 1&#x27;</span>b0;</span><br><span class="line">		</span><br><span class="line">        cam_href_d0 &lt;= 1<span class="string">&#x27;b0;</span></span><br><span class="line"><span class="string">        cam_href_d1 &lt;= 1&#x27;</span>b0;</span><br><span class="line">    end</span><br><span class="line">    <span class="keyword">else</span> begin</span><br><span class="line">        cam_vsync_d0 &lt;= cam_vsync;</span><br><span class="line">        cam_vsync_d1 &lt;= cam_vsync_d0;</span><br><span class="line">		</span><br><span class="line">        cam_href_d0 &lt;= cam_href;</span><br><span class="line">        cam_href_d1 &lt;= cam_href_d0;</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">//寄存器全部配置完成后，先等待10帧数据</span><br><span class="line">//待寄存器配置生效后再开始采集图像</span><br><span class="line">always @(posedge cam_pclk or negedge rst_n) begin</span><br><span class="line">    <span class="keyword">if</span>(!rst_n)</span><br><span class="line">        cmos_ps_cnt &lt;= 4<span class="string">&#x27;d0;</span></span><br><span class="line"><span class="string">    else if(pos_vsync &amp;&amp; (cmos_ps_cnt &lt; WAIT_FRAME))</span></span><br><span class="line"><span class="string">        cmos_ps_cnt &lt;= cmos_ps_cnt + 4&#x27;</span>d1;</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">//等待完成后 给出 等待完成信号</span><br><span class="line">always @(posedge cam_pclk or negedge rst_n) begin</span><br><span class="line">    <span class="keyword">if</span>(!rst_n)</span><br><span class="line">        wait_done &lt;= 1<span class="string">&#x27;b0;</span></span><br><span class="line"><span class="string">    else if((cmos_ps_cnt == WAIT_FRAME) &amp;&amp; pos_vsync)</span></span><br><span class="line"><span class="string">        wait_done &lt;= 1&#x27;</span>b1;</span><br><span class="line">end            </span><br><span class="line"></span><br><span class="line">//8位数据转16位RGB565数据</span><br><span class="line">always @(posedge cam_pclk  or negedge rst_n) begin</span><br><span class="line">    <span class="keyword">if</span>(!rst_n) begin</span><br><span class="line">        cmos_data_16b &lt;= 16<span class="string">&#x27;d0;</span></span><br><span class="line"><span class="string">        cam_data_d0 &lt;= 8&#x27;</span>d0;</span><br><span class="line">        byte_flag &lt;= 1<span class="string">&#x27;b0;</span></span><br><span class="line"><span class="string">    end</span></span><br><span class="line"><span class="string">    else if( cam_href ) begin  //cam 行同步信号</span></span><br><span class="line"><span class="string">        byte_flag   &lt;= ~byte_flag;</span></span><br><span class="line"><span class="string">        cam_data_d0 &lt;= cam_data;</span></span><br><span class="line"><span class="string">        if(byte_flag)</span></span><br><span class="line"><span class="string">            cmos_data_16b &lt;= &#123;cam_data_d0,cam_data&#125;;</span></span><br><span class="line"><span class="string">    end</span></span><br><span class="line"><span class="string">    else begin</span></span><br><span class="line"><span class="string">        byte_flag &lt;= 1&#x27;</span>b0;</span><br><span class="line">        cam_data_d0 &lt;= 8<span class="string">&#x27;b0;</span></span><br><span class="line"><span class="string">    end    </span></span><br><span class="line"><span class="string">end        </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">//产生输出数据有效信号</span></span><br><span class="line"><span class="string">always @(posedge cam_pclk or negedge rst_n) begin</span></span><br><span class="line"><span class="string">    if(!rst_n)</span></span><br><span class="line"><span class="string">        byte_flag_d0 &lt;= 1&#x27;</span>b0;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        byte_flag_d0 &lt;= byte_flag;    </span><br><span class="line">end     </span><br><span class="line"></span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure>
-<p>完成后如图所示：<br><img src="/pic/Start_OV7725/vivado/13.png" alt="图片"></p>
-<p>Step6：单击 Tools—&gt;Create and package IP，单击 Next。<br><img src="/pic/Start_OV7725/vivado/14.png" alt="图片"><br>Step7：选择1，继续点Next，最后Finish。<br><img src="/pic/Start_OV7725/vivado/15.png" alt="图片"><br>Step8：点击Packed IP，完成自定义IP创建<br><img src="/pic/Start_OV7725/vivado/16.png" alt="图片"><br>Step9：切换回我们的主工程，在 Setting - IP 中添加我们刚才创建的IP核路径，如图所示<br><img src="/pic/Start_OV7725/vivado/17.png" alt="图片"></p>
-<h2 id="工程设计"><a href="#工程设计" class="headerlink" title="工程设计"></a>工程设计</h2><p>1.点击 Create Block Design ，创建BD文件。<br><img src="/pic/Start_OV7725/vivado/5.png" alt="图片"></p>
-<p>2.添加zynq核心模块，并按如下进行配置<br><img src="/pic/Start_OV7725/vivado/6.png" alt="图片"><br>2.1添加HP0接口<br><img src="/pic/Start_OV7725/vivado/7.png" alt="图片"><br>2.2添加网络接口，电压设置为1.8V<br><img src="/pic/Start_OV7725/vivado/8.png" alt="图片"><br>2.3添加UART接口<br><img src="/pic/Start_OV7725/vivado/9.png" alt="图片"><br>2.4设置时钟频率50Mhz及FCLK<br><img src="/pic/Start_OV7725/vivado/10.png" alt="图片"><br>2.5设置Memory Part<br><img src="/pic/Start_OV7725/vivado/11.png" alt="图片"><br>2.6开启中断<br><img src="/pic/Start_OV7725/vivado/12.png" alt="图片"></p>
-<p>3.添加vid_in模块，并按如下进行配置<br><img src="/pic/zynq_ov7725_qt_project/vivado/3.png" alt="图片"></p>
-<p>4.添加vdma模块，并按如下进行配置<br><img src="/pic/zynq_ov7725_qt_project/vivado/4.png" alt="图片"><br><img src="/pic/zynq_ov7725_qt_project/vivado/5.png" alt="图片"></p>
-<p>5.添加我们前面创建的自定义IP模块<br>点击+号，搜索模块名（注：若搜索不到可能是自定义IP过程中有那步出现问题，不行可以参考米联教程中S02_CH04_User_IP实验）<br><img src="/pic/zynq_ov7725_qt_project/vivado/18.png" alt="图片"><br><img src="/pic/zynq_ov7725_qt_project/vivado/19.png" alt="图片"></p>
+<h2 id="工程设计"><a href="#工程设计" class="headerlink" title="工程设计"></a>工程设计</h2><p>1.添加vid_in模块，并按如下进行配置<br><img src="/pic/zynq_ov7725_qt_project/vivado/3.png" alt="图片"></p>
+<p>2.添加vdma模块，并按如下进行配置<br>（注：图中Stream Data Width(Auto)这一项你可能默认是32，这个没有关系，完成连线及生成输出文件后vivado会帮你自动设置为24）<br><img src="/pic/zynq_ov7725_qt_project/vivado/4.png" alt="图片"><br><img src="/pic/zynq_ov7725_qt_project/vivado/5.png" alt="图片"></p>
+<p>3.添加我们前面创建的自定义IP模块，点击+号，搜索模块名<br>（注：若搜索不到可能是自定义IP过程中有那步出现问题，不行可以参考米联教程中S02_CH04_User_IP实验）<br><img src="/pic/Start_OV7725/vivado2/1.png" alt="图片"></p>
+<p>模块全部添加完成，共4个模块，接下来开始连线。<br><img src="/pic/Start_OV7725/vivado2/2.png" alt="图片"></p>
+<p>4.连接采集模块与VID_IN模块，点开VID_IN模块中vid_io_in管脚的加号，并连接五根线如图<br><img src="/pic/Start_OV7725/vivado2/3.png" alt="图片"></p>
+<p>5.连接VID_IN模块与VDMA模块，共一根线如图<br><img src="/pic/Start_OV7725/vivado2/4.png" alt="图片"></p>
+<p>6.点击采集模块的这几个管脚，用ctrl+t快捷键引出管脚，在External Port Properties窗口中修改管脚名如图，共4个<br><img src="/pic/Start_OV7725/vivado2/5.png" alt="图片"></p>
+<p>7.引出核心模块的两个管脚，并修改名字如图<br><img src="/pic/Start_OV7725/vivado2/6.png" alt="图片"></p>
+<p>8.将核心模块的中断口连接vdma的s2mm中断口<br><img src="/pic/Start_OV7725/vivado2/7.png" alt="图片"></p>
+<p>至此，完成接线及引出管脚如图<br><img src="/pic/Start_OV7725/vivado2/8.png" alt="图片"></p>
+<p>9.点击Run Block Automation，直接点击OK<br><img src="/pic/Start_OV7725/vivado2/9.png" alt="图片"></p>
+<p>10.点击Run Connection Automation，全选，直接点击OK。这里是让vivado自动帮你连线<br>（注，若还有Run Connection Automation的提示，继续点击全选后点OK即可，直到没有绿色提示）<br><img src="/pic/Start_OV7725/vivado2/10.png" alt="图片"></p>
+<p>11.点击Regenerate layout这个按钮，可以帮助你自动排版<br><img src="/pic/Start_OV7725/vivado2/11.png" alt="图片"></p>
+<p>12.连接采集的rst端口至peripheral_aresetn，如图<br><img src="/pic/Start_OV7725/vivado2/12.png" alt="图片"></p>
+<p>13.连接VDMA的aclk端口，如图<br><img src="/pic/Start_OV7725/vivado2/13.png" alt="图片"></p>
+<p>14.点击Validae Design按钮，这是帮助你检查连线用的，如图<br><img src="/pic/Start_OV7725/vivado2/14.png" alt="图片"></p>
+<p>检查通过，没有错误<br><img src="/pic/Start_OV7725/vivado2/15.png" alt="图片"></p>
+<p>15.添加管脚约束文件并命名<br><img src="/pic/Start_OV7725/vivado2/16.png" alt="图片"><br><img src="/pic/Start_OV7725/vivado2/17.png" alt="图片"></p>
+<p>16.管脚约束内容如下<br>（注：需要对应自己板子的原理图管脚）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># &quot;CMOS_SCL&quot;</span></span><br><span class="line">set_property PACKAGE_PIN L14 [get_ports &#123;emio_sccb_tri_io[0]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports &#123;emio_sccb_tri_io[0]&#125;]</span><br><span class="line">set_property PULLUP <span class="literal">true</span> [get_ports &#123;emio_sccb_tri_io[0]&#125;]</span><br><span class="line"><span class="comment"># &quot;CMOS_SDAT&quot;</span></span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports &#123;emio_sccb_tri_io[1]&#125;]</span><br><span class="line">set_property PACKAGE_PIN L15 [get_ports &#123;emio_sccb_tri_io[1]&#125;]</span><br><span class="line">set_property PULLUP <span class="literal">true</span> [get_ports &#123;emio_sccb_tri_io[1]&#125;]</span><br><span class="line"><span class="comment"># &quot;CMOS_VSYNC&quot;</span></span><br><span class="line">set_property PACKAGE_PIN B19 [get_ports cam_vsync]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports cam_vsync]</span><br><span class="line"><span class="comment"># &quot;CMOS_HREF&quot;</span></span><br><span class="line">set_property PACKAGE_PIN A20 [get_ports cam_href]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports cam_href]</span><br><span class="line"><span class="comment"># &quot;CMOS_PCLK&quot;</span></span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports cam_pclk]</span><br><span class="line">set_property PACKAGE_PIN F16 [get_ports cam_pclk]</span><br><span class="line"><span class="comment"># &quot;CMOS_XCLK&quot;</span></span><br><span class="line">set_property PACKAGE_PIN F17 [get_ports cmos_xclk_o]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports cmos_xclk_o]</span><br><span class="line"><span class="comment"># &quot;CMOS_DB[0]&quot;</span></span><br><span class="line">set_property PACKAGE_PIN G18 [get_ports &#123;cam_data[0]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports &#123;cam_data[0]&#125;]</span><br><span class="line"><span class="comment"># &quot;CMOS_DB[1]&quot;</span></span><br><span class="line">set_property PACKAGE_PIN G17 [get_ports &#123;cam_data[1]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports &#123;cam_data[1]&#125;]</span><br><span class="line"><span class="comment"># &quot;CMOS_DB[2]&quot;</span></span><br><span class="line">set_property PACKAGE_PIN E19 [get_ports &#123;cam_data[2]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports &#123;cam_data[2]&#125;]</span><br><span class="line"><span class="comment"># &quot;CMOS_DB[3]&quot;</span></span><br><span class="line">set_property PACKAGE_PIN E18 [get_ports &#123;cam_data[3]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports &#123;cam_data[3]&#125;]</span><br><span class="line"><span class="comment"># &quot;CMOS_DB[4]&quot;</span></span><br><span class="line">set_property PACKAGE_PIN D20 [get_ports &#123;cam_data[4]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports &#123;cam_data[4]&#125;]</span><br><span class="line"><span class="comment"># &quot;CMOS_DB[5]&quot;</span></span><br><span class="line">set_property PACKAGE_PIN D19 [get_ports &#123;cam_data[5]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports &#123;cam_data[5]&#125;]</span><br><span class="line"><span class="comment"># &quot;CMOS_DB[6]&quot;</span></span><br><span class="line">set_property PACKAGE_PIN B20 [get_ports &#123;cam_data[6]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports &#123;cam_data[6]&#125;]</span><br><span class="line"><span class="comment"># &quot;CMOS_DB[7]&quot;</span></span><br><span class="line">set_property PACKAGE_PIN C20 [get_ports &#123;cam_data[7]&#125;]</span><br><span class="line">set_property IOSTANDARD LVCMOS33 [get_ports &#123;cam_data[7]&#125;]</span><br><span class="line"></span><br><span class="line"><span class="comment">#create_clock -period 40.000 -name ov_pclk [get_ports cam_pclk]</span></span><br><span class="line">set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets cam_pclk_IBUF]</span><br></pre></td></tr></table></figure>
+
+<p>17.右键BD文件，生成顶层文件<br><img src="/pic/Start_OV7725/vivado2/18.png" alt="图片"><br><img src="/pic/Start_OV7725/vivado2/19.png" alt="图片"></p>
+<p>18.右键BD文件，产生输出<br><img src="/pic/Start_OV7725/vivado2/20.png" alt="图片"><br><img src="/pic/Start_OV7725/vivado2/21.png" alt="图片"></p>
+<p>19.最后生成文件如图<br><img src="/pic/Start_OV7725/vivado2/22.png" alt="图片"></p>
+<p>20.点击绿色三角，选择第一项进行综合，一直点击OK，接着漫长的等待<br>（注：完成好后将会弹出窗口提示，也可以通过看右上角的状态栏看有没完成，状态栏在图中百度云的位置）<br><img src="/pic/Start_OV7725/vivado2/23.png" alt="图片"></p>
+<p>21.完成后选第一项生成网表，依旧漫长等待<br>（注：也可以在绿色三角中选择第二项，是一样的）<br><img src="/pic/Start_OV7725/vivado2/24.png" alt="图片"></p>
+<p>22.完成后点击三角旁边的按钮生成BIT流文件<br><img src="/pic/Start_OV7725/vivado2/25.png" alt="图片"></p>
+<p>23.BIT文件生成后，点击File - Export - Export Hardware 导出xsa文件<br><img src="/pic/Start_OV7725/vivado2/26.png" alt="图片"><br><img src="/pic/Start_OV7725/vivado2/27.png" alt="图片"><br><img src="/pic/Start_OV7725/vivado2/28.png" alt="图片"><br>最后点击Finish，在工程路径下就可以找到你的xsa文件了，这在后面Vitis中将会用到。<br>至此完成Vivado部分的相关编程。</p>
+<p>以下为本次从零教程相关代码<br>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1NJxLmhFy8YJ1HGA4s9QlHQ">https://pan.baidu.com/s/1NJxLmhFy8YJ1HGA4s9QlHQ</a><br>提取码：jqak</p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>Author：<a href="https://YakumoRed.github.io">YakumoRed</a>
-            <p>原文链接：<a href="https://yakumored.github.io/2022/05/03/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8BOV7725%E6%A8%A1%E5%9D%97%E9%87%87%E9%9B%86%E3%80%81%E4%BC%A0%E8%BE%93%E3%80%81%E6%98%BE%E7%A4%BA(%E9%87%87%E9%9B%86%E7%AF%87)/">https://yakumored.github.io/2022/05/03/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8BOV7725%E6%A8%A1%E5%9D%97%E9%87%87%E9%9B%86%E3%80%81%E4%BC%A0%E8%BE%93%E3%80%81%E6%98%BE%E7%A4%BA(%E9%87%87%E9%9B%86%E7%AF%87)/</a>
-            <p>发表日期：<a href="https://yakumored.github.io/2022/05/03/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8BOV7725%E6%A8%A1%E5%9D%97%E9%87%87%E9%9B%86%E3%80%81%E4%BC%A0%E8%BE%93%E3%80%81%E6%98%BE%E7%A4%BA(%E9%87%87%E9%9B%86%E7%AF%87)/">May 3rd 2022, 10:32:55 am</a>
-            <p>更新日期：<a href="https://yakumored.github.io/2022/05/03/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8BOV7725%E6%A8%A1%E5%9D%97%E9%87%87%E9%9B%86%E3%80%81%E4%BC%A0%E8%BE%93%E3%80%81%E6%98%BE%E7%A4%BA(%E9%87%87%E9%9B%86%E7%AF%87)/">May 3rd 2022, 3:18:53 pm</a>
+            <p>原文链接：<a href="https://yakumored.github.io/2022/05/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8BOV7725%E6%A8%A1%E5%9D%97%E9%87%87%E9%9B%86%E3%80%81%E4%BC%A0%E8%BE%93%E3%80%81%E6%98%BE%E7%A4%BA(%E9%87%87%E9%9B%86%E7%AF%87%E4%BA%8C)/">https://yakumored.github.io/2022/05/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8BOV7725%E6%A8%A1%E5%9D%97%E9%87%87%E9%9B%86%E3%80%81%E4%BC%A0%E8%BE%93%E3%80%81%E6%98%BE%E7%A4%BA(%E9%87%87%E9%9B%86%E7%AF%87%E4%BA%8C)/</a>
+            <p>发表日期：<a href="https://yakumored.github.io/2022/05/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8BOV7725%E6%A8%A1%E5%9D%97%E9%87%87%E9%9B%86%E3%80%81%E4%BC%A0%E8%BE%93%E3%80%81%E6%98%BE%E7%A4%BA(%E9%87%87%E9%9B%86%E7%AF%87%E4%BA%8C)/">May 10th 2022, 10:29:30 am</a>
+            <p>更新日期：<a href="https://yakumored.github.io/2022/05/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8BOV7725%E6%A8%A1%E5%9D%97%E9%87%87%E9%9B%86%E3%80%81%E4%BC%A0%E8%BE%93%E3%80%81%E6%98%BE%E7%A4%BA(%E9%87%87%E9%9B%86%E7%AF%87%E4%BA%8C)/">May 11th 2022, 10:59:51 am</a>
             <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -478,12 +501,17 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2022/05/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8BOV7725%E6%A8%A1%E5%9D%97%E9%87%87%E9%9B%86%E3%80%81%E4%BC%A0%E8%BE%93%E3%80%81%E6%98%BE%E7%A4%BA(%E4%BC%A0%E8%BE%93%E7%AF%87)/" title= "从零开始OV7725模块采集、传输、显示(传输篇)">
+                    <div class="nextTitle">从零开始OV7725模块采集、传输、显示(传输篇)</div>
+                </a>
+            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2022/04/28/ZYNQ-OV7725%E5%9B%BE%E5%83%8F%E9%87%87%E9%9B%86%E3%80%81%E4%BC%A0%E8%BE%93%E3%80%81%E6%98%BE%E7%A4%BA/" title= "ZYNQ-OV7725图像采集、传输、显示(移植篇)">
-                    <div class="prevTitle">ZYNQ-OV7725图像采集、传输、显示(移植篇)</div>
+                <a href= "/2022/05/03/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8BOV7725%E6%A8%A1%E5%9D%97%E9%87%87%E9%9B%86%E3%80%81%E4%BC%A0%E8%BE%93%E3%80%81%E6%98%BE%E7%A4%BA(%E9%87%87%E9%9B%86%E7%AF%87%E4%B8%80)/" title= "从零开始OV7725模块采集、传输、显示(采集篇、一)">
+                    <div class="prevTitle">从零开始OV7725模块采集、传输、显示(采集篇、一)</div>
                 </a>
             
         </li>
@@ -645,7 +673,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">新建工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89IP"><span class="toc-number">2.</span> <span class="toc-text">新建自定义IP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E7%A8%8B%E8%AE%BE%E8%AE%A1"><span class="toc-number">3.</span> <span class="toc-text">工程设计</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E7%A8%8B%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.</span> <span class="toc-text">工程设计</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer"></div>
@@ -803,9 +831,54 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 17
+        Total : 20
         </div>
         <!-- search  -->
         
@@ -821,7 +894,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2022/05/03/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8BOV7725%E6%A8%A1%E5%9D%97%E9%87%87%E9%9B%86%E3%80%81%E4%BC%A0%E8%BE%93%E3%80%81%E6%98%BE%E7%A4%BA(%E9%87%87%E9%9B%86%E7%AF%87)/" >从零开始OV7725模块采集、传输、显示(采集篇)</a>
+            <span class="archive-post-date">05/11</span><a class="archive-post-title" href= "/2022/05/11/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8BOV7725%E6%A8%A1%E5%9D%97%E9%87%87%E9%9B%86%E3%80%81%E4%BC%A0%E8%BE%93%E3%80%81%E6%98%BE%E7%A4%BA(%E6%98%BE%E7%A4%BA%E7%AF%87)/" >从零开始OV7725模块采集、传输、显示(显示篇)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/10</span><a class="archive-post-title" href= "/2022/05/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8BOV7725%E6%A8%A1%E5%9D%97%E9%87%87%E9%9B%86%E3%80%81%E4%BC%A0%E8%BE%93%E3%80%81%E6%98%BE%E7%A4%BA(%E4%BC%A0%E8%BE%93%E7%AF%87)/" >从零开始OV7725模块采集、传输、显示(传输篇)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/10</span><a class="archive-post-title" href= "/2022/05/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8BOV7725%E6%A8%A1%E5%9D%97%E9%87%87%E9%9B%86%E3%80%81%E4%BC%A0%E8%BE%93%E3%80%81%E6%98%BE%E7%A4%BA(%E9%87%87%E9%9B%86%E7%AF%87%E4%BA%8C)/" >从零开始OV7725模块采集、传输、显示(采集篇、二)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href= "/2022/05/03/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8BOV7725%E6%A8%A1%E5%9D%97%E9%87%87%E9%9B%86%E3%80%81%E4%BC%A0%E8%BE%93%E3%80%81%E6%98%BE%E7%A4%BA(%E9%87%87%E9%9B%86%E7%AF%87%E4%B8%80)/" >从零开始OV7725模块采集、传输、显示(采集篇、一)</a>
         </li>
     
     
@@ -850,7 +938,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/13</span><a class="archive-post-title" href= "/2021/12/13/ZYNQ-OV7725%E5%9B%BE%E5%83%8F%E9%87%87%E9%9B%86%E6%A8%A1%E5%9D%97/" >ZYNQ-OV7725图像采集</a>
+            <span class="archive-post-date">12/13</span><a class="archive-post-title" href= "/2021/12/13/ZYNQ-OV7725%E5%9B%BE%E5%83%8F%E9%87%87%E9%9B%86%E6%A8%A1%E5%9D%97/" >ZYNQ-OV7725图像采集模块</a>
         </li>
     
     
@@ -945,6 +1033,8 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="图像"><span class="iconfont-archer">&#xe606;</span>图像</span>
     
         <span class="sidebar-tag-name" data-tags="ILA"><span class="iconfont-archer">&#xe606;</span>ILA</span>
+    
+        <span class="sidebar-tag-name" data-tags="从零"><span class="iconfont-archer">&#xe606;</span>从零</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
